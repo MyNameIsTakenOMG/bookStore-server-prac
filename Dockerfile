@@ -8,8 +8,8 @@ RUN mvn clean package
 #
 # Package stage
 #
-FROM sapmachine:jre-ubuntu-17
-COPY --from=build /target/demo-0.0.1-SNAPSHOT.jar demo.jar
+FROM eclipse-temurin:17-jdk-alpine
+COPY --from=build target/*.jar demo.jar
 # ENV PORT=8080
 EXPOSE 8080
 CMD ["java","-jar","demo.jar"]
