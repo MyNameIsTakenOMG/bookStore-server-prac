@@ -8,6 +8,7 @@ RUN mvn clean package
 #
 # Package stage
 #
+
 FROM eclipse-temurin:17-jdk-alpine
 COPY --from=build target/*.jar demo.jar
 # ENV PORT=8080
