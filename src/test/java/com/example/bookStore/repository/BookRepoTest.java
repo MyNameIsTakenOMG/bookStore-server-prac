@@ -19,21 +19,21 @@ class BookRepoTest {
     private BookRepo bookRepo;
 
     @Test
-    @Sql(scripts = {"classpath:insertInitialBookDataForTest.sql"})
+    @Sql(scripts = {"classpath:initialDataForTesting.sql"})
     void shouldAbleToFetchAllBooks(){
         List<Book> all = bookRepo.findAll();
         Long count = (long) all.size();
-        Assertions.assertEquals(18,count);
+        Assertions.assertEquals(1,count);
     }
 
     @Test
-    @Sql(scripts = {"classpath:insertInitialBookDataForTest.sql"})
+    @Sql(scripts = {"classpath:initialDataForTesting.sql"})
     void shouldReturnOneRecordWhenTitleIsTestTitle(){
         List<Book> searchResults = bookRepo.findBooksByTitle("test title");
         Assertions.assertEquals(1,searchResults.size());
     }
     @Test
-    @Sql(scripts = {"classpath:insertInitialBookDataForTest.sql"})
+    @Sql(scripts = {"classpath:initialDataForTesting.sql"})
     void shouldReturnOneRecordWhenTitleIsTestTitleIgnoreCase(){
         List<Book> searchResults = bookRepo.findBooksByTitleIgnoreCase("TesT tItlE");
         Assertions.assertEquals(1,searchResults.size());
