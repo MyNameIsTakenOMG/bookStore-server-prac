@@ -33,7 +33,7 @@ class BookControllerTest {
         when(bookService.getBooks()).thenReturn(bookDTOs);
         ResponseEntity<List<BookDTO>> response = bookController.getBooks();
         assertThat(response.getBody()).isNotNull();
-        assertThat(response.getBody().size()).isEqualTo(1);
+        assertThat(response.getBody().size()).isEqualTo(18);
     }
 
     @Test

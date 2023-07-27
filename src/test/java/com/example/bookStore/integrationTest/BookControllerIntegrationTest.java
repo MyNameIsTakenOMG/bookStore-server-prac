@@ -43,13 +43,21 @@ public class BookControllerIntegrationTest {
     void shouldReturnBooksWhenBookApiCalled(){
         BookDTO[] bookDTOs = testRestTemplate.getForObject("http://localhost:"+port+"/api/v1/books", BookDTO[].class);
         assertThat(bookDTOs).isNotNull();
-        assertThat(bookDTOs.length).isEqualTo(1);
+        assertThat(bookDTOs.length).isEqualTo(18);
     }
+//    @Test
+//    @Sql(scripts = {"classpath:insertInitialBookDataForTest.sql"})
+//    void shouldReturnBooksWhenBookApiCalled1(){
+//        BookDTO[] bookDTOs = testRestTemplate.getForObject("http://localhost:"+port+"/api/v1/books", BookDTO[].class);
+//        assertThat(bookDTOs).isNotNull();
+//        assertThat(bookDTOs.length).isEqualTo(1);
+//    }
+
     @Test
     @Sql(scripts = {"classpath:insertInitialBookDataForTest.sql"})
-    void shouldReturnBooksWhenBookApiCalled1(){
-        BookDTO[] bookDTOs = testRestTemplate.getForObject("http://localhost:"+port+"/api/v1/books", BookDTO[].class);
-        assertThat(bookDTOs).isNotNull();
-        assertThat(bookDTOs.length).isEqualTo(1);
+    void shouldReturnBookWithTestTitleIgnoreCase(){
+        BookDTO[] bookDTOS = testRestTemplate.getForObject("http://localhost:"+port+"/api/v1/books/Test TITle", BookDTO[].class);
+        assertThat(bookDTOS).isNotNull();
+        assertThat(bookDTOS.length).isEqualTo(1);
     }
 }

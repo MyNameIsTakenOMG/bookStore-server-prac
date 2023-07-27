@@ -23,7 +23,7 @@ class BookRepoTest {
     void shouldAbleToFetchAllBooks(){
         List<Book> all = bookRepo.findAll();
         Long count = (long) all.size();
-        Assertions.assertEquals(1,count);
+        Assertions.assertEquals(18,count);
     }
 
     @Test
