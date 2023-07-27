@@ -39,17 +39,25 @@ public class BookControllerIntegrationTest {
     }
 
     @Test
-    @Sql(scripts = {"classpath:insertInitialBookDataForTest.sql"})
+    @Sql(scripts = {"classpath:initialDataForTesting.sql"})
     void shouldReturnBooksWhenBookApiCalled(){
         BookDTO[] bookDTOs = testRestTemplate.getForObject("http://localhost:"+port+"/api/v1/books", BookDTO[].class);
         assertThat(bookDTOs).isNotNull();
         assertThat(bookDTOs.length).isEqualTo(1);
     }
+//    @Test
+//    @Sql(scripts = {"classpath:initialDataForTesting.sql"})
+//    void shouldReturnBooksWhenBookApiCalled1(){
+//        BookDTO[] bookDTOs = testRestTemplate.getForObject("http://localhost:"+port+"/api/v1/books", BookDTO[].class);
+//        assertThat(bookDTOs).isNotNull();
+//        assertThat(bookDTOs.length).isEqualTo(2);
+//    }
+
     @Test
-    @Sql(scripts = {"classpath:insertInitialBookDataForTest.sql"})
-    void shouldReturnBooksWhenBookApiCalled1(){
-        BookDTO[] bookDTOs = testRestTemplate.getForObject("http://localhost:"+port+"/api/v1/books", BookDTO[].class);
-        assertThat(bookDTOs).isNotNull();
-        assertThat(bookDTOs.length).isEqualTo(1);
+    @Sql(scripts = {"classpath:initialDataForTesting.sql"})
+    void shouldReturnBookWithTestTitleIgnoreCase(){
+        BookDTO[] bookDTOS = testRestTemplate.getForObject("http://localhost:"+port+"/api/v1/books/Test TITle", BookDTO[].class);
+        assertThat(bookDTOS).isNotNull();
+        assertThat(bookDTOS.length).isEqualTo(1);
     }
 }

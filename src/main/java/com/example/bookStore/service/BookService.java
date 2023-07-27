@@ -28,4 +28,9 @@ public class BookService {
     private Function<Book, BookDTO> getBookDTOFunction() {
         return book -> modelMapper.map(book, BookDTO.class);
     }
+
+    public List<BookDTO> getBooksByTitle(String title) {
+        List<Book> books = bookRepo.findBooksByTitleIgnoreCase(title);
+        return books.stream().map(getBookDTOFunction()).collect(Collectors.toList());
+    }
 }

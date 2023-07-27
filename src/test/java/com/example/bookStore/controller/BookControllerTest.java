@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -34,6 +35,17 @@ class BookControllerTest {
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().size()).isEqualTo(1);
     }
+
+    @Test
+    void shouldReturnBooksByTitleIgnoreCase(){
+        List<BookDTO> bookDTOs = new ArrayList<>();
+        bookDTOs.add(getBookDTO());
+        when(bookService.getBooksByTitle(anyString())).thenReturn(bookDTOs);
+        ResponseEntity<List<BookDTO>> response = bookController.getBooksByTitle("TEST titlE");
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().size()).isEqualTo(1);
+    }
+
     private BookDTO getBookDTO(){
         return BookDTO.builder()
                 .title("test title")
