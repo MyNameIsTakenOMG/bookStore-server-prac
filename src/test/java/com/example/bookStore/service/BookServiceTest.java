@@ -15,8 +15,9 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
-
+import static org.assertj.core.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class BookServiceTest {
     @InjectMocks
@@ -42,6 +43,20 @@ class BookServiceTest {
         assertEquals(2010,bookDTOList.get(0).getReleaseYear());
 
     }
+
+    @Test
+    void shouldReturnBooksByTitleIgnoreCase(){
+        List<Book> books = new ArrayList<>();
+        Book book = getBook();
+        books.add(book);
+        BookDTO bookDTO = getBookDTO();
+        when(bookRepo.findBooksByTitleIgnoreCase(anyString())).thenReturn(books);
+        when(modelMapper.map(book, BookDTO.class)).thenReturn(bookDTO);
+
+        List<BookDTO> bookDTOs = bookService.getBooksByTitle("TEST titlE");
+        assertThat(bookDTOs.size()).isEqualTo(1);
+    }
+
     private Book getBook(){
         return Book.builder()
                 .title("test title")
