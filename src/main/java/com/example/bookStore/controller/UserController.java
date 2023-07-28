@@ -28,7 +28,7 @@ public class UserController {
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword());
             var userAuthentication = customAuthenticationProvider.authenticate(usernamePasswordAuthenticationToken);
             String jwtToken = jwtUtil.generateJwtToken(userAuthentication);
-            return ResponseEntity.ok(new AuthenticationResponse(jwtToken));
+            return ResponseEntity.ok(new AuthenticationResponse("Bearer "+jwtToken));
         }catch (BadCredentialsException ex){
             throw new RuntimeException("credentials are not correct");
         }
