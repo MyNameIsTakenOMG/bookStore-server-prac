@@ -16,7 +16,7 @@ import java.util.*;
 
 @Component
 public class JwtUtil {
-    private String JWT_SECRET = "secret";
+    private SecretKey JWT_SECRET = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     public String generateJwtToken(Authentication authentication){
         Map<String,Object> claims = new HashMap<>();
         return createToken(claims,authentication);
@@ -28,7 +28,8 @@ public class JwtUtil {
                 .setSubject(authentication.getName())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+1000*60*60*24))
-                .signWith(SignatureAlgorithm.HS256, JWT_SECRET)
+//                .signWith(SignatureAlgorithm.HS256, JWT_SECRET)
+                .signWith(JWT_SECRET,SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -42,7 +43,8 @@ public class JwtUtil {
     }
 
     private Claims extractClaims(String jwtToken) {
-        SecretKey secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(JWT_SECRET));
-        return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(jwtToken).getBody();
+//        SecretKey secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(JWT_SECRET));
+//        SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        return Jwts.parserBuilder().setSigningKey(JWT_SECRET).build().parseClaimsJws(jwtToken).getBody();
     }
 }
