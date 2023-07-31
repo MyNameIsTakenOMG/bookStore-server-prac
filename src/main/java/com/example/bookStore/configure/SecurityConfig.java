@@ -31,6 +31,7 @@ public class SecurityConfig {
                 });
         http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
             authorizationManagerRequestMatcherRegistry.requestMatchers("/api/v1/login").permitAll()
+                    .requestMatchers("/api/v1/register").permitAll()
                     .anyRequest().authenticated();
         });
         http.addFilterBefore(customJwtFilter, UsernamePasswordAuthenticationFilter.class);
