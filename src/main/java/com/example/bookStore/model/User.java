@@ -1,9 +1,6 @@
 package com.example.bookStore.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
@@ -14,6 +11,7 @@ import java.util.UUID;
 @Builder
 @Getter
 @Setter
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(generator = "UUID",strategy = GenerationType.AUTO)
