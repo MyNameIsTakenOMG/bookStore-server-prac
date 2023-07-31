@@ -66,7 +66,7 @@ class UserServiceTest {
         when(modelMapper.map(any(),any())).thenReturn(getUserDTO(id));
         UserDTO userDTO = userService.getUserByEmail("email");
         assertThat(userDTO).isNotNull();
-        assertThat(userDTO.getName()).isEqualTo("username");
+        assertThat(userDTO.getName()).isEqualTo("name");
     }
     @Test
     void shouldThrowErrorWhenEmailNotExist() {
